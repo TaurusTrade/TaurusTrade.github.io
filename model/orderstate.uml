@@ -12,10 +12,20 @@ state commit_cycle {
 	SUBMITTING --> ACTIVE
 	ACTIVE --> PARTIALLY_FILLED
 	ACTIVE --> FILLED
+	PARTIALLY_FILLED--> FILLED
+
+	SUBMITTING --> REJECTED
+
+	FILLED --> [*]
+	REJECTED --> [*]
 }
 
+SUBMITTING --> cancel_cycle
+ACTIVE --> cancel_cycle
+PARTIALLY_FILLED --> cancel_cycle
+
 state cancel_cycle {
-	
+	[*] --> CANCELLING 
 }
 
 
@@ -29,35 +39,28 @@ SUBMITTING : broker has received order but hasn't gotten receipt from exchange
 ACTIVE : 已报
 ACTIVE : broker has received confirm from exchange
 
+PARTIALLY_FILLED ： 部成
+PARTIALLY_FILLED ： part of the order has matched
+
+FILLED : 已成
+FILLED : the order has holly matched
+
+REJECTED : 废单
+REJECTED : 交易所认为委托无效
+
+CANCELLING : 待撤
+CANCELLING : 下单撤单指令，还未开始处理
+
+PENDING_CANCELLING : 正撤
+PENDING_CANCELLING : 已经提交撤单指令到订单处理系统，未确认是否下单成功
+
+PARTIALLY_CANCELLED : 部撤
+PARTIALLY_CANCELLED : 下单指令中的一部份数量已被撤消
+
+CANCELLED ： 已撤
+CANCELLED ： 委托指令全部被撤消
+
+CANCEL_REJECTED : 撤废
+CANCEL_REJECTED : 撤单废单，表示撤单指令失败
+
 @enduml
-
-
-
-       
-
-        [Description("部成")]             //8: 下单指令部份成交；
-        PARTIALLY_FILLED = 1 << 3,          // vnpy: PARTTRADED
-
-        [Description("已成")]             //16：全部成交；
-        FILLED = 1 << 4,                    // vnpy: ALLTRADED
-
-
-        [Description("废单")]             //32: 交易所认为委托无效
-        REJECTED = 1 << 5,                  //vnpy: REJECTED
-
-
-        [Description("待撤")]             //256: 下单撤单指令，还未开始处理
-        CANCELLING = 1 << 8,
-
-
-        [Description("正撤")]             //512: 已经提交撤单指令到订单处理系统，未确认是否下单成功
-        PENDING_CANCELLING = 1 << 9,        //vnpy: CANCELLING
-
-        [Description("部撤")]             //1024：下单指令中的一部份数量已被撤消；
-        PARTIALLY_CANCELLED = 1 << 10,      //vnpy: PARTCANCELLED
-
-        [Description("已撤")]
-        CANCELLED = 1 << 11,             //2048：委托指令全部被撤消；        
-                                         // vnpy: CANCELLED
-        [Description("撤废")]
-        CANCEL_REJECTED = 1 << 12        //4096：撤单废单，表示撤单指令失败
