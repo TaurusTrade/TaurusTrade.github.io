@@ -1,0 +1,11 @@
+@startuml
+
+TradingRule "1" -up- "*" Security
+
+TradingRule *-- ViewModel
+
+Service -right-* TradingRule
+
+
+
+@enduml

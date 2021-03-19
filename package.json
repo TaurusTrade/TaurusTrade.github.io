@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "gitbook-plugin-graphviz": "^0.0.2",
+    "gitbook-plugin-katex": "^1.1.4",
+    "gitbook-plugin-plantuml": "^0.0.15",
+    "uml": "^1.0.0"
+  }
+}

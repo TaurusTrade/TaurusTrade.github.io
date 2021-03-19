@@ -1,0 +1,28 @@
+{
+    "plugins": [
+        "graphviz@git+https://github.com/darvasd/gitbook-plugin-graphviz.git",
+        "uml",        
+        "-lunr",
+        "-search",
+        "-fontsettings",
+        "-sharing",        
+        "highlight",
+        "livereload",
+        "plantuml",
+        "include-codeblock",
+        "ace"
+    ],
+    "pluginsConfig": {
+        "uml": {
+            "format": "png",
+            "nailgun": false
+        },
+
+        "include-codeblock": {
+            "template": "default",
+            "unindent": false,
+            "edit": false
+        }
+    }
+
+}

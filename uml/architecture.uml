@@ -1,0 +1,13 @@
+@startuml
+hide empty description
+
+Module *-- Service
+ViewModel -* Module
+Module *- Command 
+
+class Service << Export >>
+
+class ViewModel << Export >>
+
+class Command << Export >>
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+
+
+
+User "1" -- "*" Account 
+
+Gateway "1" -- "*" Exchange : Export
+
+Gateway "1" -- "*" Board : Export
+
+Exchange "1" -- "*" Board
+
+
+
+Gateway *-- Account
+Gateway *-- Position
+
+class Tick
+
+class Position
+
+class Portfolio
+
+
+@enduml
