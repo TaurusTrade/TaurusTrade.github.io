@@ -1,8 +1,6 @@
 @startuml
 
-UNKNOWN
-
-[*] --> NEW
+[*] --> NEW : SendOrder
 NEW --> commit_cycle
 
 
@@ -20,12 +18,21 @@ state commit_cycle {
 	REJECTED --> [*]
 }
 
-SUBMITTING --> cancel_cycle
-ACTIVE --> cancel_cycle
-PARTIALLY_FILLED --> cancel_cycle
+SUBMITTING --> cancel_cycle : CancelOrder
+ACTIVE --> cancel_cycle : CancelOrder
+PARTIALLY_FILLED --> cancel_cycle : CancelOrder
 
 state cancel_cycle {
 	[*] --> CANCELLING 
+
+	CANCELLING --> PENDING_CANCELLING
+	PENDING_CANCELLING --> CANCELLED
+	PENDING_CANCELLING --> PARTIALLY_CANCELLED
+	PENDING_CANCELLING --> CANCEL_REJECTED
+
+	CANCELLED --> [*]
+	PARTIALLY_CANCELLED --> [*]
+	CANCEL_REJECTED --> [*]
 }
 
 
@@ -39,8 +46,8 @@ SUBMITTING : broker has received order but hasn't gotten receipt from exchange
 ACTIVE : 已报
 ACTIVE : broker has received confirm from exchange
 
-PARTIALLY_FILLED ： 部成
-PARTIALLY_FILLED ： part of the order has matched
+PARTIALLY_FILLED : 部成
+PARTIALLY_FILLED : part of the order has matched
 
 FILLED : 已成
 FILLED : the order has holly matched
@@ -57,10 +64,12 @@ PENDING_CANCELLING : 已经提交撤单指令到订单处理系统，未确认�
 PARTIALLY_CANCELLED : 部撤
 PARTIALLY_CANCELLED : 下单指令中的一部份数量已被撤消
 
-CANCELLED ： 已撤
-CANCELLED ： 委托指令全部被撤消
+CANCELLED : 已撤
+CANCELLED : 委托指令全部被撤消
 
 CANCEL_REJECTED : 撤废
 CANCEL_REJECTED : 撤单废单，表示撤单指令失败
+
+UNKNOWN : 未知
 
 @enduml
