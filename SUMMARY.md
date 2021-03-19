@@ -1,6 +1,9 @@
 # Summary
 
 * [Introduction](README.md)
+* [Concept](concept/0.index.md)
+  * [Strategy](concept/strategy.md)
+  * [Gateway](concpet/gateway.md)
 * [Architecture](./architecture.md)
 * [Domain](model/index.md)
   * [Trading](model/trading.md)

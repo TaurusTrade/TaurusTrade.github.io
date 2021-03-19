@@ -3,5 +3,4 @@ package.json
 publish.sh
 node_modules
 .gitignore
-uml
 **/*.uml
