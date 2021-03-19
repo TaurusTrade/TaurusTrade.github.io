@@ -41,7 +41,7 @@ NEW : 待报
 NEW : created and waiting to deal
 
 SUBMITTING : 正报
-SUBMITTING : broker has received order but hasn't gotten receipt from exchange
+note left of SUBMITTING : broker has received order \n but hasn't gotten receipt from exchange
 
 ACTIVE : 已报
 ACTIVE : broker has received confirm from exchange
